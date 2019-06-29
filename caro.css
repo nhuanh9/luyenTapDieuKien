@@ -13,18 +13,6 @@ body{
 	max-width: 600px;
 	margin: 10px auto;
 }
-#board{
-    overflow: auto;
-	width: 40%;
-	margin: 0 auto;
-	background-image: url("img/pikachu.jpg");
-}
-#board-table{
-	width: 100%;
-	border: 1px solid #00027f;
-	min-width: 300px;
-	table-layout:fixed;
-}
 .square{
 	width: 6.25%;
 	padding: 2px;
@@ -68,7 +56,7 @@ body{
 	padding: 10px;
 	z-index: 100;
 }
-@media only screen and (max-width: 400px){
+@media only screen and (max-width: 380px){
     #board{
         overflow: auto;
         width: 90%;
@@ -76,13 +64,13 @@ body{
         background-image: url("img/pikachu.jpg");
     }
     #board-table{
-        width: 340px !important;
+        width:340px;
         border: 1px solid #00027f;
         table-layout:fixed;
     }
 
 }
-@media only screen and (max-width: 450px){
+@media only screen and (min-width: 414px){
     #board{
         overflow: auto;
         width: 90%;
@@ -90,9 +78,24 @@ body{
         background-image: url("img/pikachu.jpg");
     }
     #board-table{
-        width: 375px !important;
+        width: 375px;
         border: 1px solid #00027f;
         table-layout:fixed;
     }
 
+}
+@media only screen and (min-width: 1000px) {
+    #board {
+        overflow: auto;
+        width: 40%;
+        margin: 0 auto;
+        background-image: url("img/pikachu.jpg");
+    }
+
+    #board-table {
+        width: 100%;
+        border: 1px solid #00027f;
+        min-width: 200px;
+        table-layout: fixed;
+    }
 }
