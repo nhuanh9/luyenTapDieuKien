@@ -326,6 +326,9 @@ function newGame() {
     squareUpdate(8, 7);
     squareUpdate(8, 8);
     document.getElementById('s' + String('00' + prepBotX).slice(-2) + String('00' + prepBotY).slice(-2) + '').style.background = "rgba(255,255,255,0.5)";
+    Turn = X;
+    GameIsPlaying = true;
+    amountSquare = 0;
 
 }
 
