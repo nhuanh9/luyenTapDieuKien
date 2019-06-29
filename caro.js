@@ -13,10 +13,12 @@ for (let i = 0; i < amountRows; i++) {
 }
 let prepBotX = 0;
 let prepBotY = 0;
+
 function isWin() {
     if (amountSquare === amountCols * amountRows) {
         return 3;
     }
+    let i, j;
     let value = '';
     for (let i = 0; i < amountRows; i++) {
         value += '0' + valueSquare[i].join('') + '03';
@@ -86,6 +88,7 @@ function isWin() {
 
 function cval() {
     let cval_value = 0;
+    let i, j;
     let val = function (XO) {
         let mArray = [];
         let value = 0;
