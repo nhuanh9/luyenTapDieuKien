@@ -11,6 +11,8 @@ for (let i = 0; i < amountRows; i++) {
         valueSquare[i][j] = 0;
     }
 }
+
+
 let prepBotX = 0;
 let prepBotY = 0;
 
@@ -309,7 +311,22 @@ function resign() {
 }
 
 function newGame() {
-    document.location.reload();
+    for (let i = 0; i < amountRows; i++) {
+        for (let j = 0; j < amountCols; j++) {
+            valueSquare[i][j] = 0;
+            squareUpdate(i, j);
+        }
+    }
+    valueSquare[7][7] = X;
+    valueSquare[7][8] = O;
+    valueSquare[8][8] = X;
+    valueSquare[8][7] = O;
+    squareUpdate(7, 7);
+    squareUpdate(7, 8);
+    squareUpdate(8, 7);
+    squareUpdate(8, 8);
+    document.getElementById('s' + String('00' + prepBotX).slice(-2) + String('00' + prepBotY).slice(-2) + '').style.background = "rgba(255,255,255,0.5)";
+
 }
 
 function squareUpdate(i, j) {

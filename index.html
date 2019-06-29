@@ -13,25 +13,25 @@
         <div id="board-cpanel">
             <button class="btn1 btn-med" id="newGame" onclick="newGame()">New Game</button>
             <button class="btn1 btn-med" id="resign" onclick="resign()">Resign</button>
-<!--            <button class="btn1 btn-med" id="undo" onclick="undo()">Undo</button>-->
+            <!--            <button class="btn1 btn-med" id="undo" onclick="undo()">Undo</button>-->
         </div>
     </center>
 </div>
-    <div id="board">
-        <table id="board-table" cellpadding="3px" cellspacing="3px">
-            <tbody>
-            <script type="text/javascript">
-                for (let i = 0; i < amountRows; i++) {
-                    document.write('<tr>');
-                    for (let j = 0; j < amountCols; j++) {
-                        document.write('<td class="square" id="s' + String('00' + i).slice(-2) + String('00' + j).slice(-2) + '" onclick="squareClick(' + i + ',' + j + ' )"></td>');
-                    }
-                    document.write('</tr>');
+<div id="board">
+    <table id="board-table" cellpadding="3px" cellspacing="3px">
+        <tbody>
+        <script type="text/javascript">
+            for (let i = 0; i < amountRows; i++) {
+                document.write('<tr>');
+                for (let j = 0; j < amountCols; j++) {
+                    document.write('<td class="square" id="s' + String('00' + i).slice(-2) + String('00' + j).slice(-2) + '" onclick="squareClick(' + i + ',' + j + ' )"></td>');
                 }
-            </script>
-            </tbody>
-        </table>
-    </div>
+                document.write('</tr>');
+            }
+        </script>
+        </tbody>
+    </table>
+</div>
 
 </body>
 </html>
