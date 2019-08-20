@@ -2,9 +2,11 @@ const X = 1, O = 2, Empty = 0;
 const amountRows = 16, amountCols = 16;
 let Turn = X;
 let GameIsPlaying = true;
-let amountSquare = 0;
+let amountSquareHasValue = 0;
 let bestMoveForBot = {row: 0, col: 0};
 let valueSquare = [];
+let prepBotX = 0;
+let prepBotY = 0;
 for (let i = 0; i < amountRows; i++) {
     valueSquare[i] = [];
     for (let j = 0; j < amountCols; j++) {
@@ -12,15 +14,26 @@ for (let i = 0; i < amountRows; i++) {
     }
 }
 
-
-let prepBotX = 0;
-let prepBotY = 0;
-
-function isWin() {
-    if (amountSquare === amountCols * amountRows) {
+function checkWin() {
+    let result = isWin();
+    if (result === 1) {
+        alert('Chúc mừng chủ tịch!!!');
+        GameIsPlaying = false;
+    } else if (result === 2) {
+        alert('Chủ tịch gà quá đê!');
+        GameIsPlaying = false;
+    } else if (result === 3) {
+        alert('Hoà!');
+        GameIsPlaying = false;
+    }
+}
+function isDraw(){
+    if (amountSquareHasValue === amountCols * amountRows) {
         return 3;
     }
-    let i, j;
+}
+function isWin() {
+    isDraw();
     let value = '';
     for (let i = 0; i < amountRows; i++) {
         value += '0' + valueSquare[i].join('') + '03';
@@ -35,8 +48,8 @@ function isWin() {
 
     for (let k = 0; k < amountCols; k++) {
         value += '0';
-        i = 0;
-        j = k;
+        let i = 0;
+        let j = k;
         while (i < amountRows && j < amountCols) {
             value += valueSquare[i][j];
             i++;
@@ -46,8 +59,8 @@ function isWin() {
     }
     for (let k = 0; k < amountCols; k++) {
         value += '0';
-        i = 0;
-        j = k;
+        let i = 0;
+        let j = k;
         while (i < amountRows && j >= 0) {
             value += valueSquare[i][j];
             i++;
@@ -57,8 +70,8 @@ function isWin() {
     }
     for (let k = 0; k < amountCols; k++) {
         value += '0';
-        i = amountRows - 1;
-        j = k;
+        let i = amountRows - 1;
+        let j = k;
         while (i >= 0 && j >= 0) {
             value += valueSquare[i][j];
             i--;
@@ -68,8 +81,8 @@ function isWin() {
     }
     for (let k = 0; k < amountCols; k++) {
         value += '0';
-        i = amountRows - 1;
-        j = k;
+        let i = amountRows - 1;
+        let j = k;
         while (i >= 0 && j < amountCols) {
             value += valueSquare[i][j];
             i--;
@@ -90,7 +103,6 @@ function isWin() {
 
 function cval() {
     let cval_value = 0;
-    let i, j;
     let val = function (XO) {
         let mArray = [];
         let value = 0;
@@ -103,13 +115,13 @@ function cval() {
             count = (mArray[x].match(regexp3) || []).length;
             switch (count) {
                 case 5:
-                    value += 100000000;
+                    value += 10000000000000;
                     break;
                 case 4:
-                    value += 1000;
+                    value += 1000000;
                     break;
                 case 3:
-                    value += 10;
+                    value += 1000;
                     break;
                 case 2:
                     value += 1;
@@ -132,8 +144,8 @@ function cval() {
     }
     for (let k = 0; k < amountCols; k++) {
         valStr += '0';
-        i = 0;
-        j = k;
+        let i = 0;
+        let j = k;
         while (i < amountRows && j < amountCols) {
             valStr += valueSquare[i][j];
             i++;
@@ -143,8 +155,8 @@ function cval() {
     }
     for (let k = 0; k < amountCols; k++) {
         valStr += '0';
-        i = 0;
-        j = k;
+        let i = 0;
+        let j = k;
         while (i < amountRows && j >= 0) {
             valStr += valueSquare[i][j];
             i++;
@@ -154,8 +166,8 @@ function cval() {
     }
     for (let k = 0; k < amountCols; k++) {
         valStr += '0';
-        i = amountRows - 1;
-        j = k;
+        let i = amountRows - 1;
+        let j = k;
         while (i >= 0 && j >= 0) {
             valStr += valueSquare[i][j];
             i--;
@@ -165,8 +177,8 @@ function cval() {
     }
     for (let k = 0; k < amountCols; k++) {
         valStr += '0';
-        i = amountRows - 1;
-        j = k;
+        let i = amountRows - 1;
+        let j = k;
         while (i >= 0 && j < amountCols) {
             valStr += valueSquare[i][j];
             i--;
@@ -265,27 +277,12 @@ function alphabeta(XO, alpha, beta, depth) {
     }
 }
 
-
-function checkWin() {
-    let result = isWin();
-    if (result === 1) {
-        alert('Chúc mừng chủ tịch!!!');
-        GameIsPlaying = false;
-    } else if (result === 2) {
-        alert('Chủ tịch gà quá đê!');
-        GameIsPlaying = false;
-    } else if (result === 3) {
-        alert('Hoà!');
-        GameIsPlaying = false;
-    }
-}
-
 function squareClick(row, col) {
     if (GameIsPlaying && valueSquare[row][col] === 0 && Turn === X) {
         document.getElementById('s' + String('00' + prepBotX).slice(-2) + String('00' + prepBotY).slice(-2) + '').style.background = "rgba(255,255,255,0.5)";
         valueSquare[row][col] = X;
         squareUpdate(row, col);
-        amountSquare++;
+        amountSquareHasValue++;
         Turn = O;
         checkWin();
         alphabeta(O, -Infinity, Infinity, 2);
@@ -293,7 +290,7 @@ function squareClick(row, col) {
         squareUpdate(bestMoveForBot.row, bestMoveForBot.col);
         document.getElementById('s' + String('00' + bestMoveForBot.row).slice(-2) + String('00' + bestMoveForBot.col).slice(-2) + '').style.background = "#ff1200";
         Turn = X;
-        amountSquare++;
+        amountSquareHasValue++;
         checkWin();
         prepBotX = bestMoveForBot.row;
         prepBotY = bestMoveForBot.col;
@@ -328,7 +325,7 @@ function newGame() {
     document.getElementById('s' + String('00' + prepBotX).slice(-2) + String('00' + prepBotY).slice(-2) + '').style.background = "rgba(255,255,255,0.5)";
     Turn = X;
     GameIsPlaying = true;
-    amountSquare = 0;
+    amountSquareHasValue = 0;
 
 }
 
